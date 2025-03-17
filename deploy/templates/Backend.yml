@@ -1,0 +1,117 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: WebSocketCommunication Lambda function and required resources.
+Parameters:
+  Stage:
+    Description: Stage is used to deploy multiple instances of WebSocketCommunication
+    Type: String
+Resources:
+  LambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code: "../../.local/Backend"
+      MemorySize: 1024
+      Handler: Backend.AWS::Staticsoft.WebSocketCommunication.TestServer.AWS.LambdaEntryPoint::FunctionHandlerAsync
+      Role:
+        Fn::ImportValue: !Sub "WebSocketCommunication${Stage}LambdaFunctionRoleArn"
+      Timeout: 30
+      Runtime: dotnet8
+  LambdaApiGatewayPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      FunctionName: !Ref LambdaFunction
+      SourceArn:
+        Fn::Sub:
+        - arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiId}/*/*/*
+        - ApiId:
+            Fn::ImportValue: !Sub "WebSocketCommunication${Stage}ApiGatewayId"
+  ApiGatewayDeployment:
+    Type: AWS::ApiGateway::Deployment
+    DependsOn:
+    - OptionsMethod
+    Properties:
+      RestApiId:
+        Fn::ImportValue: !Sub "WebSocketCommunication${Stage}ApiGatewayId"
+      StageName: initial
+  ApiGatewayStage:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      RestApiId:
+        Fn::ImportValue: !Sub "WebSocketCommunication${Stage}ApiGatewayId"
+      DeploymentId: !Ref ApiGatewayDeployment
+      StageName: !Ref Stage
+      MethodSettings:
+      - HttpMethod: "*"
+        ResourcePath: "/*"
+        LoggingLevel: 'OFF'
+  OptionsResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Fn::ImportValue: !Sub "WebSocketCommunication${Stage}ApiGatewayRootResourceId"
+      PathPart: "{proxy+}"
+      RestApiId:
+        Fn::ImportValue: !Sub "WebSocketCommunication${Stage}ApiGatewayId"
+  OptionsMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      RestApiId:
+        Fn::ImportValue: !Sub "WebSocketCommunication${Stage}ApiGatewayId"
+      ResourceId: !Ref OptionsResource
+      HttpMethod: OPTIONS
+      AuthorizationType: None
+      ApiKeyRequired: false
+      RequestParameters:
+        method.request.header.Access-Control-Allow-Origin: false
+      Integration:
+        Type: MOCK
+        PassthroughBehavior: WHEN_NO_TEMPLATES
+        RequestTemplates:
+          "application/json": "{\"statusCode\": 200}"
+        IntegrationResponses:
+        - StatusCode: 200
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers:
+              Fn::Sub:
+              - "'${Headers}'"
+              - Headers:  
+                  Fn::Join:
+                  - ","
+                  - - "content-type"
+                    - "accept"
+                    - "origin"
+                    - "authorization"
+            method.response.header.Access-Control-Allow-Methods:
+              Fn::Sub:
+              - "'${Methods}'"
+              - Methods:
+                  Fn::Join:
+                  - ","
+                  - - "GET"
+                    - "POST"
+                    - "PUT"
+                    - "DELETE"
+                    - "OPTIONS"
+          ResponseTemplates:
+            application/json:
+              Fn::Sub:
+              - |
+                $input.json("$")
+                #set($domainsInline = "${CrossOriginDomains}")
+                #set($domains = $domainsInline.split(","))
+                #set($origin = $input.params("origin"))
+                #if($domains.contains($origin))
+                #set($context.responseOverride.header.Access-Control-Allow-Origin = "$origin")
+                #end
+              - CrossOriginDomains:
+                  Fn::Sub:
+                  - "https://${Domain}"
+                  - Domain:
+                      Fn::ImportValue: !Sub "WebSocketCommunication${Stage}DomainName"
+      MethodResponses:
+      - StatusCode: 200
+        ResponseParameters:
+          method.response.header.Access-Control-Allow-Origin: true
+          method.response.header.Access-Control-Allow-Headers: true
+          method.response.header.Access-Control-Allow-Methods: true

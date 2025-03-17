@@ -1,0 +1,136 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: WebSocketCommunication services used by the backend.
+Parameters:
+  DomainName:
+    Description: Domain name used to host both frontend and backend
+    Type: String
+  DomainHostedZoneId:
+    Description: Hosted zone id of domain used to communicate to the CloudFront
+    Type: String
+  Stage:
+    Description: Stage is used to deploy multiple instances of WebSocketCommunication
+    Type: String
+    Default: Default
+Resources:
+  Alias:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub "WebSocketCommunication${Stage}ServicesAlias"
+      Type: String
+      Value: !Sub "WebSocketCommunication${Stage}"
+  Certificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !Ref DomainName
+      DomainValidationOptions:
+      - DomainName: !Ref DomainName
+        HostedZoneId: !Ref DomainHostedZoneId
+      ValidationMethod: DNS
+  LambdaFunctionRolePolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: !Sub "${Alias.Value}LambdaPolicy"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
+          - "logs:CreateLogGroup"
+          - "logs:CreateLogStream"
+          - "logs:PutLogEvents"
+          Resource: "arn:aws:logs:*:*:*"
+  LambdaFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Action:
+          - sts:AssumeRole
+          Effect: Allow
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+      ManagedPolicyArns:
+      - !Ref LambdaFunctionRolePolicy
+  CloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Aliases:
+        - !Ref DomainName
+        DefaultCacheBehavior:
+          TargetOriginId: ApiGatewayOrigin
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - HEAD
+            - OPTIONS
+            - PATCH
+          CachedMethods:
+            - HEAD
+            - GET
+          ForwardedValues:
+            Headers: []
+            QueryString: false
+            QueryStringCacheKeys: []
+            Cookies:
+              Forward: none
+          MinTTL: 0
+        Enabled: true
+        HttpVersion: http2
+        IPV6Enabled: false
+        Origins:
+        - DomainName: !Sub "${ApiGateway}.execute-api.${AWS::Region}.amazonaws.com"
+          Id: ApiGatewayOrigin
+          OriginPath: !Sub "/${Stage}"
+          CustomOriginConfig:
+            OriginProtocolPolicy: https-only
+        PriceClass: PriceClass_100
+        ViewerCertificate:
+          AcmCertificateArn: !Ref Certificate
+          MinimumProtocolVersion: TLSv1.2_2019
+          SslSupportMethod: sni-only
+  DNSRecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref DomainHostedZoneId
+      Name: !Ref DomainName
+      AliasTarget:
+        DNSName: !GetAtt CloudFrontDistribution.DomainName
+        EvaluateTargetHealth: false
+        HostedZoneId: Z2FDTNDATAQYW2
+      Type: A
+  ApiGateway:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: !Sub "${Alias.Value}Api"
+  
+Outputs:
+  LambdaFunctionRoleArn:
+    Value: !GetAtt LambdaFunctionRole.Arn
+    Export:
+      Name: !Sub "WebSocketCommunication${Stage}LambdaFunctionRoleArn"
+  ApiGatewayId:
+    Value: !Ref ApiGateway
+    Export:
+      Name: !Sub "WebSocketCommunication${Stage}ApiGatewayId"
+  ApiGatewayRootResourceId:
+    Value: !GetAtt ApiGateway.RootResourceId
+    Export:
+      Name: !Sub "WebSocketCommunication${Stage}ApiGatewayRootResourceId"
+  DomainName:
+    Value: !Ref DomainName
+    Export:
+      Name: !Sub "WebSocketCommunication${Stage}DomainName"
+  CloudFrontDistributionId:
+    Value: !Ref CloudFrontDistribution
+    Export:
+      Name: !Sub "WebSocketCommunication${Stage}CloudFrontDistributionId"
+  DomainHostedZoneId:
+    Value: !Ref DomainHostedZoneId
+    Export:
+      Name: !Sub "WebSocketCommunication${Stage}DomainHostedZoneId"

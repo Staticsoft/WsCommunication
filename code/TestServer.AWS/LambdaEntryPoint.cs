@@ -1,4 +1,4 @@
-﻿using Amazon.Lambda.APIGatewayEvents;
+﻿﻿using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Staticsoft.Asp.Lambda;
 using System.Diagnostics.CodeAnalysis;
@@ -24,7 +24,8 @@ public class WebSocketTrigger : TriggerSource
         [NotNullWhen(true)] out APIGatewayProxyRequest? proxyRequest
     )
     {
-        Console.WriteLine(request.GetRawText());
+        Console.WriteLine("WebSocket request: " + request.GetRawText());
+        
         proxyRequest = null;
         return false;
     }

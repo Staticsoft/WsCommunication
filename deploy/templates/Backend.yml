@@ -10,11 +10,12 @@ Resources:
     Properties:
       Code: "../../.local/Backend"
       MemorySize: 1024
-      Handler: Backend.AWS::Staticsoft.WebSocketCommunication.TestServer.AWS.LambdaEntryPoint::FunctionHandlerAsync
+      Handler: TestServer.AWS::Staticsoft.TestServer.AWS.LambdaEntryPoint::FunctionHandlerAsync
       Role:
         Fn::ImportValue: !Sub "WebSocketCommunication${Stage}LambdaFunctionRoleArn"
       Timeout: 30
       Runtime: dotnet8
+#region RestApi
   LambdaApiGatewayPermission:
     Type: AWS::Lambda::Permission
     Properties:
@@ -26,7 +27,6 @@ Resources:
         - arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiId}/*/*/*
         - ApiId:
             Fn::ImportValue: !Sub "WebSocketCommunication${Stage}RestApiGatewayId"
-#region RestApi
   ApiGatewayDeployment:
     Type: AWS::ApiGateway::Deployment
     DependsOn:
@@ -118,6 +118,17 @@ Resources:
           method.response.header.Access-Control-Allow-Methods: true
 
 #region WsApi
+  LambdaWsApiGatewayPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      FunctionName: !Ref LambdaFunction
+      SourceArn:
+        Fn::Sub:
+        - arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiId}/*/*
+        - ApiId:
+            Fn::ImportValue: !Sub "WebSocketCommunication${Stage}WsApiGatewayId"
   WsApiIntegration:
     Type: AWS::ApiGatewayV2::Integration
     Properties:

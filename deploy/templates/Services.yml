@@ -60,7 +60,7 @@ Resources:
         Aliases:
         - !Ref DomainName
         DefaultCacheBehavior:
-          TargetOriginId: ApiGatewayOrigin
+          TargetOriginId: RestApiGatewayOrigin
           ViewerProtocolPolicy: redirect-to-https
           AllowedMethods:
             - GET
@@ -84,8 +84,8 @@ Resources:
         HttpVersion: http2
         IPV6Enabled: false
         Origins:
-        - DomainName: !Sub "${ApiGateway}.execute-api.${AWS::Region}.amazonaws.com"
-          Id: ApiGatewayOrigin
+        - DomainName: !Sub "${RestApiGateway}.execute-api.${AWS::Region}.amazonaws.com"
+          Id: RestApiGatewayOrigin
           OriginPath: !Sub "/${Stage}"
           CustomOriginConfig:
             OriginProtocolPolicy: https-only
@@ -104,7 +104,7 @@ Resources:
         EvaluateTargetHealth: false
         HostedZoneId: Z2FDTNDATAQYW2
       Type: A
-  ApiGateway:
+  RestApiGateway:
     Type: AWS::ApiGateway::RestApi
     Properties:
       Name: !Sub "${Alias.Value}Api"
@@ -114,14 +114,14 @@ Outputs:
     Value: !GetAtt LambdaFunctionRole.Arn
     Export:
       Name: !Sub "WebSocketCommunication${Stage}LambdaFunctionRoleArn"
-  ApiGatewayId:
-    Value: !Ref ApiGateway
+  RestApiGatewayId:
+    Value: !Ref RestApiGateway
     Export:
-      Name: !Sub "WebSocketCommunication${Stage}ApiGatewayId"
-  ApiGatewayRootResourceId:
-    Value: !GetAtt ApiGateway.RootResourceId
+      Name: !Sub "WebSocketCommunication${Stage}RestApiGatewayId"
+  RestApiGatewayRootResourceId:
+    Value: !GetAtt RestApiGateway.RootResourceId
     Export:
-      Name: !Sub "WebSocketCommunication${Stage}ApiGatewayRootResourceId"
+      Name: !Sub "WebSocketCommunication${Stage}RestApiGatewayRootResourceId"
   DomainName:
     Value: !Ref DomainName
     Export:

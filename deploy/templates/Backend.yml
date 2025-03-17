@@ -25,20 +25,20 @@ Resources:
         Fn::Sub:
         - arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiId}/*/*/*
         - ApiId:
-            Fn::ImportValue: !Sub "WebSocketCommunication${Stage}ApiGatewayId"
+            Fn::ImportValue: !Sub "WebSocketCommunication${Stage}RestApiGatewayId"
   ApiGatewayDeployment:
     Type: AWS::ApiGateway::Deployment
     DependsOn:
     - OptionsMethod
     Properties:
       RestApiId:
-        Fn::ImportValue: !Sub "WebSocketCommunication${Stage}ApiGatewayId"
+        Fn::ImportValue: !Sub "WebSocketCommunication${Stage}RestApiGatewayId"
       StageName: initial
   ApiGatewayStage:
     Type: AWS::ApiGateway::Stage
     Properties:
       RestApiId:
-        Fn::ImportValue: !Sub "WebSocketCommunication${Stage}ApiGatewayId"
+        Fn::ImportValue: !Sub "WebSocketCommunication${Stage}RestApiGatewayId"
       DeploymentId: !Ref ApiGatewayDeployment
       StageName: !Ref Stage
       MethodSettings:
@@ -49,15 +49,15 @@ Resources:
     Type: AWS::ApiGateway::Resource
     Properties:
       ParentId:
-        Fn::ImportValue: !Sub "WebSocketCommunication${Stage}ApiGatewayRootResourceId"
+        Fn::ImportValue: !Sub "WebSocketCommunication${Stage}RestApiGatewayRootResourceId"
       PathPart: "{proxy+}"
       RestApiId:
-        Fn::ImportValue: !Sub "WebSocketCommunication${Stage}ApiGatewayId"
+        Fn::ImportValue: !Sub "WebSocketCommunication${Stage}RestApiGatewayId"
   OptionsMethod:
     Type: AWS::ApiGateway::Method
     Properties:
       RestApiId:
-        Fn::ImportValue: !Sub "WebSocketCommunication${Stage}ApiGatewayId"
+        Fn::ImportValue: !Sub "WebSocketCommunication${Stage}RestApiGatewayId"
       ResourceId: !Ref OptionsResource
       HttpMethod: OPTIONS
       AuthorizationType: None

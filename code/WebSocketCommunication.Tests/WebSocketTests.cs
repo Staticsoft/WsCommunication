@@ -8,6 +8,5 @@ public class WebSocketTests
     public async Task CanConnectAndDisconnect()
     {
         var client = new ClientWebSocket();
-
     }
 }

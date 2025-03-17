@@ -107,7 +107,14 @@ Resources:
   RestApiGateway:
     Type: AWS::ApiGateway::RestApi
     Properties:
-      Name: !Sub "${Alias.Value}Api"
+      Name: !Sub "${Alias.Value}RestApi"
+  WsApiGateway:
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      ProtocolType: WEBSOCKET
+      Name:
+        Fn::Sub: "${Alias.Value}WsApi"
+      RouteSelectionExpression: "\\$default"
   
 Outputs:
   LambdaFunctionRoleArn:
@@ -122,6 +129,10 @@ Outputs:
     Value: !GetAtt RestApiGateway.RootResourceId
     Export:
       Name: !Sub "WebSocketCommunication${Stage}RestApiGatewayRootResourceId"
+  WsApiGatewayId:
+    Value: !Ref WsApiGateway
+    Export:
+      Name: !Sub "WebSocketCommunication${Stage}WsApiGatewayId"
   DomainName:
     Value: !Ref DomainName
     Export:

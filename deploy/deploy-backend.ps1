@@ -110,12 +110,30 @@ function Wait-Stack {
 }
 
 function New-Deployment {
+    New-RestApiDeployment
+    New-WsApiDeployment
+}
+
+function New-RestApiDeployment {
     $apiId = Get-ExportValue -Name "WebSocketCommunication${Stage}RestApiGatewayId"
 
     & aws @(
         'apigateway'
         'create-deployment'
         '--rest-api-id'
+        $apiId
+        '--stage-name'
+        $Stage
+    )
+}
+
+function New-WsApiDeployment {
+    $apiId = Get-ExportValue -Name "WebSocketCommunication${Stage}WsApiGatewayId"
+
+    & aws @(
+        'apigatewayv2'
+        'create-deployment'
+        '--api-id'
         $apiId
         '--stage-name'
         $Stage

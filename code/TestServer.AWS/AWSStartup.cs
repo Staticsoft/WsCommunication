@@ -19,9 +19,10 @@ public class AWSStartup : Startup
         {
             Console.WriteLine($"Received disconnect request: {request.ConnectionId}");
         });
-        endpoints.MapPost("/WebSocket/Message", async (WebSocketMessageRequest request) =>
-        {
 
+        endpoints.MapPost("/WebSocket/TestMessage", (WebSocketMessageRequest<TestMessage> request) =>
+        {
+            Console.WriteLine($"Received message: {request.ConnectionId} {request.Body.TestProperty}");
         });
         return base.ConfigureEndpoints(endpoints);
     }
@@ -37,8 +38,13 @@ public class WebSocketDisconnectRequest
     public required string ConnectionId { get; init; }
 }
 
-public class WebSocketMessageRequest
+public class WebSocketMessageRequest<T>
 {
     public required string ConnectionId { get; init; }
-    public required string Body { get; init; }
+    public required T Body { get; init; }
+}
+
+public class TestMessage
+{
+    public required string TestProperty { get; init; }
 }

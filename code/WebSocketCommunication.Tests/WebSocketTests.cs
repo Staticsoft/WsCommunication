@@ -10,7 +10,10 @@ public class WebSocketTests
     {
         var client = new ClientWebSocket();
         await client.ConnectAsync(new Uri(Api), CancellationToken.None);
-        await client.SendAsync(Encoding.UTF8.GetBytes(@"{""Test"": ""Message""}"), WebSocketMessageType.Text, true, CancellationToken.None);
+        var message = """
+            { "Path": "/WebSocket/TestMessage", "Body": { "TestProperty": "Test value" } }
+            """;
+        await client.SendAsync(Encoding.UTF8.GetBytes(message), WebSocketMessageType.Text, true, CancellationToken.None);
         await client.CloseAsync(WebSocketCloseStatus.NormalClosure, "status description", CancellationToken.None);
     }
 

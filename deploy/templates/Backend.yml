@@ -150,6 +150,13 @@ Resources:
         Fn::ImportValue: !Sub "WebSocketCommunication${Stage}WsApiGatewayId"
       RouteKey: "$disconnect"
       Target: !Sub "integrations/${WsApiIntegration}"
+  WsApiMessageEndpoint:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId:
+        Fn::ImportValue: !Sub "WebSocketCommunication${Stage}WsApiGatewayId"
+      RouteKey: "$default"
+      Target: !Sub "integrations/${WsApiIntegration}"
   WsApiGatewayDeployment:
     Type: AWS::ApiGatewayV2::Deployment
     DependsOn:

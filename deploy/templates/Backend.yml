@@ -15,6 +15,14 @@ Resources:
         Fn::ImportValue: !Sub "WebSocketCommunication${Stage}LambdaFunctionRoleArn"
       Timeout: 30
       Runtime: dotnet8
+      Environment:
+        Variables:
+          ApiGatewayEndpoint:
+            Fn::Sub:
+            - "https://${WsApiGatewayId}.execute-api.${AWS::Region}.amazonaws.com/${Stage}"
+            - WsApiGatewayId:
+                Fn::ImportValue: !Sub "WebSocketCommunication${Stage}WsApiGatewayId"
+
 #region RestApi
   LambdaApiGatewayPermission:
     Type: AWS::Lambda::Permission

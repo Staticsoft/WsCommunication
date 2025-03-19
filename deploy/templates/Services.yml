@@ -39,6 +39,10 @@ Resources:
           - "logs:CreateLogStream"
           - "logs:PutLogEvents"
           Resource: "arn:aws:logs:*:*:*"
+        - Effect: Allow
+          Action:
+          - "execute-api:ManageConnections"
+          Resource: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${WsApiGateway}/${Stage}/POST/@connections/*"
   LambdaFunctionRole:
     Type: AWS::IAM::Role
     Properties:

@@ -1,4 +1,7 @@
-﻿namespace Staticsoft.TestServer.AWS;
+﻿using Amazon.ApiGatewayManagementApi;
+using System.Text;
+
+namespace Staticsoft.TestServer.AWS;
 
 public class AWSStartup : Startup
 {
@@ -20,9 +23,17 @@ public class AWSStartup : Startup
             Console.WriteLine($"Received disconnect request: {request.ConnectionId}");
         });
 
-        endpoints.MapPost("/WebSocket/TestMessage", (WebSocketMessageRequest<TestMessage> request) =>
+        endpoints.MapPost("/WebSocket/TestMessage", async (WebSocketMessageRequest<TestMessage> request) =>
         {
             Console.WriteLine($"Received message: {request.ConnectionId} {request.Body.TestProperty}");
+
+            using var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(request.Body.TestProperty));
+
+            var config = new AmazonApiGatewayManagementApiConfig() { ServiceURL = Configuration("ApiGatewayEndpoint") };
+            var client = new AmazonApiGatewayManagementApiClient(config);
+            await client.PostToConnectionAsync(new() { ConnectionId = request.ConnectionId, Data = memoryStream });
+
+            Console.WriteLine("Successfully sent message");
         });
         return base.ConfigureEndpoints(endpoints);
     }

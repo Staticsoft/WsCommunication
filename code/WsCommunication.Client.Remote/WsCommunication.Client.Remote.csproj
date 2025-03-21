@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
@@ -9,9 +9,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\WebSocketCommunication.Abstractions\WebSocketCommunication.Abstractions.csproj" />
+      <ProjectReference Include="..\WsCommunication.Client.Abstractions\WsCommunication.Client.Abstractions.csproj" />
     </ItemGroup>
-  
+
     <ItemGroup>
         <PackageReference Include="Staticsoft.Extensions.DependencyInjection" Version="1.0.0-3" />
     </ItemGroup>

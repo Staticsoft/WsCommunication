@@ -8,8 +8,4 @@
         <RootNamespace>Staticsoft.$(MSBuildProjectName)</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Staticsoft.Contracts.Abstractions" Version="1.0.0-17" />
-    </ItemGroup>
-
 </Project>

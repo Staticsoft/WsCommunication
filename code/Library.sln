@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WsCommunication.Server.Abst
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WsCommunication.Server.ASP", "WsCommunication.Server.ASP\WsCommunication.Server.ASP.csproj", "{E725C813-EE1C-4AEB-BCFE-04E5FD66EF39}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WsCommunication.Server.ApiGateway", "WsCommunication.Server.ApiGateway\WsCommunication.Server.ApiGateway.csproj", "{16B168A9-8172-472F-8AE3-B0EA28B1F261}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{E725C813-EE1C-4AEB-BCFE-04E5FD66EF39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E725C813-EE1C-4AEB-BCFE-04E5FD66EF39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E725C813-EE1C-4AEB-BCFE-04E5FD66EF39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16B168A9-8172-472F-8AE3-B0EA28B1F261}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16B168A9-8172-472F-8AE3-B0EA28B1F261}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16B168A9-8172-472F-8AE3-B0EA28B1F261}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16B168A9-8172-472F-8AE3-B0EA28B1F261}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

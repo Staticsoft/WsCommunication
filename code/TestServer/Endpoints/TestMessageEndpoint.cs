@@ -6,10 +6,10 @@ using System.Text;
 namespace Staticsoft.TestServer;
 
 public class TestMessageEndpoint(
-    WsManagement ws
+    WsServer ws
 ) : HttpEndpoint<WsServerInMessage<TestMessage>, TestMessageResponse>
 {
-    readonly WsManagement Ws = ws;
+    readonly WsServer Ws = ws;
 
     public async Task<TestMessageResponse> Execute(WsServerInMessage<TestMessage> request)
     {

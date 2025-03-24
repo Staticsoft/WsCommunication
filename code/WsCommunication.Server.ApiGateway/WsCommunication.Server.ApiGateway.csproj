@@ -14,12 +14,13 @@
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/Staticsoft/WsCommunication</RepositoryUrl>
     </PropertyGroup>
-    
+
     <ItemGroup>
-      <ProjectReference Include="..\WsCommunication.Client.Abstractions\WsCommunication.Client.Abstractions.csproj" />
+      <ProjectReference Include="..\WsCommunication.Server\WsCommunication.Server.Abstractions.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="AWSSDK.ApiGatewayManagementApi" Version="3.7.400.115" />
         <PackageReference Include="Staticsoft.Extensions.DependencyInjection" Version="1.0.0-3" />
     </ItemGroup>
 

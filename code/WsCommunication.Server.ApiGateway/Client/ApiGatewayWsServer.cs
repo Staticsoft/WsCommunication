@@ -1,10 +1,11 @@
 ﻿using Amazon.ApiGatewayManagementApi;
+using Staticsoft.WsCommunication.Server.Abstractions;
 
-namespace Staticsoft.TestServer.AWS;
+namespace Staticsoft.WsCommunication.Server.ApiGateway;
 
-public class ApiGatewayWsManagement(
+public class ApiGatewayWsServer(
     AmazonApiGatewayManagementApiClient client
-) : WsManagement
+) : WsServer
 {
     readonly AmazonApiGatewayManagementApiClient Client = client;
 
@@ -14,4 +15,3 @@ public class ApiGatewayWsManagement(
         await Client.PostToConnectionAsync(new() { ConnectionId = connectionId, Data = memoryStream });
     }
 }
-

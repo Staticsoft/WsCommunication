@@ -1,7 +1,7 @@
-﻿using System.Net.WebSockets;
-using WsCommunication.Client.Abstractions;
+﻿using Staticsoft.WsCommunication.Client.Abstractions;
+using System.Net.WebSockets;
 
-namespace WsCommunication.Client.Remote;
+namespace Staticsoft.WsCommunication.Client.Remote;
 
 public class RemoteWsClient(
     RemoteWsClient.Options options
@@ -18,6 +18,6 @@ public class RemoteWsClient(
     public async Task<WsConnection> Connect()
     {
         await Client.ConnectAsync(new Uri(Configuration.Uri), CancellationToken.None);
-        return new RemoteWsConnection(Client);
+        return new WsConnection(Client);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace WsCommunication.Client.Abstractions;
+﻿namespace Staticsoft.WsCommunication.Client.Abstractions;
 
 public interface WsClient
 {

@@ -14,7 +14,7 @@
 
     <ItemGroup>
         <PackageReference Include="AWSSDK.ApiGatewayManagementApi" Version="3.7.400.115" />
-        <PackageReference Include="Staticsoft.Asp.Lambda" Version="1.0.0-3" />
+        <PackageReference Include="Staticsoft.Asp.Lambda" Version="1.0.0-4" />
     </ItemGroup>
 
 </Project>

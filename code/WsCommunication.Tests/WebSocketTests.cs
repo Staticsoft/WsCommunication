@@ -1,9 +1,9 @@
 ﻿using Staticsoft.TestContracts;
 using Staticsoft.Testing.Integration;
 using Staticsoft.TestServer.Local;
-using WsCommunication.Client.Abstractions;
+using Staticsoft.WsCommunication.Client.Abstractions;
 
-namespace Staticsoft.WebSocketCommunication.Tests;
+namespace Staticsoft.WsCommunication.Tests;
 
 public abstract class WebSocketTests : IntegrationTestBase<LocalStartup>
 {

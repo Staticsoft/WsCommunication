@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using WsCommunication.Client.Abstractions;
+using Staticsoft.WsCommunication.Client.Abstractions;
 
-namespace WsCommunication.Client.Remote;
+namespace Staticsoft.WsCommunication.Client.Remote;
 
 public static class DependencyInjectionExtensions
 {

@@ -1,4 +1,10 @@
-﻿namespace Staticsoft.TestServer;
+﻿using Staticsoft.Contracts.ASP.Server;
+using Staticsoft.Serialization.Net;
+using Staticsoft.TestContracts;
+using Staticsoft.WsCommunication.Server.ASP;
+using System.Reflection;
+
+namespace Staticsoft.TestServer;
 
 public class Startup
 {
@@ -10,9 +16,13 @@ public class Startup
 
     protected virtual IApplicationBuilder ConfigureApp(IApplicationBuilder app, IWebHostEnvironment env) => app
         .UseRouting()
+        .UseServerAPIRouting<Schema>()
+        .UseDefaultWsHandlers()
         .UseEndpoints(Endpoints);
 
     protected virtual IServiceCollection RegisterServices(IServiceCollection services) => services
+        .UseServerAPI<Schema>(Assembly.GetExecutingAssembly())
+        .UseSystemJsonSerializer()
         .AddControllers().Services;
 
     void Endpoints(IEndpointRouteBuilder endpoints)

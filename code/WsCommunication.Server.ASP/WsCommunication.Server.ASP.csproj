@@ -9,11 +9,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\WsCommunication.Client.Abstractions\WsCommunication.Client.Abstractions.csproj" />
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Staticsoft.Extensions.DependencyInjection" Version="1.0.0-3" />
+      <ProjectReference Include="..\WsCommunication.Server\WsCommunication.Server.Abstractions.csproj" />
     </ItemGroup>
 
     <PropertyGroup>

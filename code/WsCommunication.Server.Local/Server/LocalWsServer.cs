@@ -8,6 +8,6 @@ class LocalWsServer(
 {
     readonly LocalWsServerConnections Connections = connections;
 
-    public Task Send(string connectionId, string message)
+    public Task Send<T>(string connectionId, T message)
         => Connections.Get(connectionId).Send(message);
 }

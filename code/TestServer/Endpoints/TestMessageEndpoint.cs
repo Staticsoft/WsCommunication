@@ -12,7 +12,7 @@ public class TestMessageEndpoint(
 
     public async Task<TestMessageResponse> Execute(WsServerInMessage<TestMessage> request)
     {
-        await Ws.Send(request.ConnectionId, request.Body.TestProperty);
+        await Ws.Send(request.ConnectionId, request.Body);
         return new();
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Net.WebSockets;
+﻿using System.Collections.Concurrent;
+using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Channels;
@@ -10,6 +11,7 @@ public class WsConnection : IAsyncDisposable
     readonly WebSocket WebSocket;
     readonly Task ReceiveMessages;
     readonly CancellationTokenSource Cancellation = new();
+    readonly ConcurrentDictionary<string, Channel<JsonElement>> Channels = [];
 
     public WsConnection(WebSocket webSocket)
     {
@@ -33,6 +35,8 @@ public class WsConnection : IAsyncDisposable
             try
             {
                 var message = await ReceiveMessage(webSocket);
+                var channel = GetChannel(message.Type);
+                await channel.Writer.WriteAsync(message.Body);
             }
             catch (OperationCanceledException)
             {
@@ -41,7 +45,7 @@ public class WsConnection : IAsyncDisposable
         }
     }
 
-    async Task<string> ReceiveMessage(WebSocket webSocket)
+    async Task<Message> ReceiveMessage(WebSocket webSocket)
     {
         var bytes = new List<byte>();
         var end = false;
@@ -53,23 +57,47 @@ public class WsConnection : IAsyncDisposable
 
             end = received.EndOfMessage;
         }
-        return Encoding.UTF8.GetString(bytes.ToArray());
+        return JsonSerializer.Deserialize<Message>(Encoding.UTF8.GetString(bytes.ToArray()))!;
     }
 
     public ChannelReader<T> Receive<T>()
     {
-
+        var jsonChannel = GetChannel(typeof(T).Name);
+        var channel = Channel.CreateUnbounded<T>();
+        _ = Task.Run(async () =>
+        {
+            while (await jsonChannel.Reader.WaitToReadAsync(Cancellation.Token))
+            {
+                var message = await jsonChannel.Reader.ReadAsync(Cancellation.Token);
+                await channel.Writer.WriteAsync(JsonSerializer.Deserialize<T>(message)!);
+            }
+        }, Cancellation.Token);
+        return channel.Reader;
     }
+
+    Channel<JsonElement> GetChannel(string name)
+        => Channels.GetOrAdd(name, (_) => Channel.CreateUnbounded<JsonElement>());
 
     public async ValueTask DisposeAsync()
     {
         await Cancellation.CancelAsync();
         await ReceiveMessages;
-        await WebSocket.CloseAsync(
-            WebSocketCloseStatus.NormalClosure,
-            nameof(WebSocketCloseStatus.NormalClosure),
-            Cancellation.Token
-        );
+
+        if (WebSocket.State == WebSocketState.Open)
+        {
+            await WebSocket.CloseAsync(
+                WebSocketCloseStatus.NormalClosure,
+                nameof(WebSocketCloseStatus.NormalClosure),
+                CancellationToken.None
+            );
+        }
+
         WebSocket.Dispose();
+    }
+
+    class Message
+    {
+        public required string Type { get; init; }
+        public required JsonElement Body { get; init; }
     }
 }

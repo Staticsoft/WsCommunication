@@ -1,7 +1,7 @@
 ﻿namespace Staticsoft.WsCommunication.Server.Abstractions;
 
-public class WsServerInMessage<T>
+public class WsServerOutMessage<T>
 {
-    public required string ConnectionId { get; init; }
+    public required string Type { get; init; }
     public required T Body { get; init; }
 }

@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>Staticsoft.$(MSBuildProjectName)</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\TestServer\TestServer.csproj" />
+        <ProjectReference Include="..\WsCommunication.Server.ApiGateway\WsCommunication.Server.ApiGateway.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Staticsoft.Asp.Lambda" Version="1.0.0-4" />
+    </ItemGroup>
+
+</Project>

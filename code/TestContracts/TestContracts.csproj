@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>Staticsoft.$(MSBuildProjectName)</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\WsCommunication.Server.Abstractions\WsCommunication.Server.Abstractions.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Staticsoft.Contracts.Abstractions" Version="1.0.0-17" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Alias="HttpMethod" Include="Staticsoft.HttpCommunication.Abstractions.HttpMethod" />
+    </ItemGroup>
+
+</Project>

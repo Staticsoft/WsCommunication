@@ -1,5 +1,7 @@
-﻿using System.Net.WebSockets;
+﻿using Staticsoft.WsCommunication.Server.Abstractions;
+using System.Net.WebSockets;
 using System.Text;
+using System.Text.Json;
 
 namespace Staticsoft.WsCommunication.Server.Local;
 
@@ -9,9 +11,16 @@ public class LocalWsServerConnection(
 {
     readonly WebSocket WebSocket = webSocket;
 
-    public Task Send(string message)
+    public Task Send<T>(T message)
+        => Send(new WsServerOutMessage<T>()
+        {
+            Type = typeof(T).Name,
+            Body = message
+        });
+
+    Task Send<T>(WsServerOutMessage<T> message)
         => WebSocket.SendAsync(
-            Encoding.UTF8.GetBytes(message),
+            Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message)),
             WebSocketMessageType.Text,
             true,
             CancellationToken.None

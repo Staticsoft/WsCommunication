@@ -20,8 +20,9 @@ public abstract class WebSocketTests : IntegrationTestBase<LocalStartup>
             Body = new() { TestProperty = "Test value" }
         });
 
-        var text = await connection.Receive();
+        var testMessages = connection.Receive<TestMessage>();
+        var message = await testMessages.ReadAsync();
 
-        Assert.Equal("Test value", text);
+        Assert.Equal("Test value", message.TestProperty);
     }
 }

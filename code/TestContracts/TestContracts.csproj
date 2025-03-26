@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\WsCommunication.Server\WsCommunication.Server.Abstractions.csproj" />
+      <ProjectReference Include="..\WsCommunication.Server.Abstractions\WsCommunication.Server.Abstractions.csproj" />
     </ItemGroup>
     
     <ItemGroup>

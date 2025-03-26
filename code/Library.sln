@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsCommunication.Client.Abst
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsCommunication.Client.Remote", "WsCommunication.Client.Remote\WsCommunication.Client.Remote.csproj", "{84935B1A-CBC5-4EBD-9DBE-1C768E036637}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsCommunication.Server.Abstractions", "WsCommunication.Server\WsCommunication.Server.Abstractions.csproj", "{464EA8B5-5562-4B23-B538-38029192244D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsCommunication.Server.Abstractions", "WsCommunication.Server.Abstractions\WsCommunication.Server.Abstractions.csproj", "{464EA8B5-5562-4B23-B538-38029192244D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsCommunication.Server.ASP", "WsCommunication.Server.ASP\WsCommunication.Server.ASP.csproj", "{E725C813-EE1C-4AEB-BCFE-04E5FD66EF39}"
 EndProject

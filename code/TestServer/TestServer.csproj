@@ -17,7 +17,7 @@
     <ItemGroup>
       <ProjectReference Include="..\TestContracts\TestContracts.csproj" />
       <ProjectReference Include="..\WsCommunication.Server.ASP\WsCommunication.Server.ASP.csproj" />
-      <ProjectReference Include="..\WsCommunication.Server\WsCommunication.Server.Abstractions.csproj" />
+      <ProjectReference Include="..\WsCommunication.Server.Abstractions\WsCommunication.Server.Abstractions.csproj" />
     </ItemGroup>
 
 </Project>

@@ -31,6 +31,7 @@
     <ItemGroup>
         <ProjectReference Include="..\TestServer.Local\TestServer.Local.csproj" />
         <ProjectReference Include="..\WsCommunication.Client.Remote\WsCommunication.Client.Remote.csproj" />
+        <ProjectReference Include="..\WsCommunication.Client.Testing\WsCommunication.Client.Testing.csproj" />
     </ItemGroup>
 
 </Project>

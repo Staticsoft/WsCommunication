@@ -17,11 +17,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsCommunication.Client.Abst
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsCommunication.Client.Remote", "WsCommunication.Client.Remote\WsCommunication.Client.Remote.csproj", "{84935B1A-CBC5-4EBD-9DBE-1C768E036637}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WsCommunication.Server.Abstractions", "WsCommunication.Server\WsCommunication.Server.Abstractions.csproj", "{464EA8B5-5562-4B23-B538-38029192244D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsCommunication.Server.Abstractions", "WsCommunication.Server\WsCommunication.Server.Abstractions.csproj", "{464EA8B5-5562-4B23-B538-38029192244D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WsCommunication.Server.ASP", "WsCommunication.Server.ASP\WsCommunication.Server.ASP.csproj", "{E725C813-EE1C-4AEB-BCFE-04E5FD66EF39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsCommunication.Server.ASP", "WsCommunication.Server.ASP\WsCommunication.Server.ASP.csproj", "{E725C813-EE1C-4AEB-BCFE-04E5FD66EF39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WsCommunication.Server.ApiGateway", "WsCommunication.Server.ApiGateway\WsCommunication.Server.ApiGateway.csproj", "{16B168A9-8172-472F-8AE3-B0EA28B1F261}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsCommunication.Server.ApiGateway", "WsCommunication.Server.ApiGateway\WsCommunication.Server.ApiGateway.csproj", "{16B168A9-8172-472F-8AE3-B0EA28B1F261}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WsCommunication.Server.Local", "WsCommunication.Server.Local\WsCommunication.Server.Local.csproj", "{F2698C48-87A9-4D54-8549-247814208A0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WsCommunication.Client.Testing", "WsCommunication.Client.Testing\WsCommunication.Client.Testing.csproj", "{A9DBA409-A73A-43D8-A494-124F83E5B797}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +73,14 @@ Global
 		{16B168A9-8172-472F-8AE3-B0EA28B1F261}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16B168A9-8172-472F-8AE3-B0EA28B1F261}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16B168A9-8172-472F-8AE3-B0EA28B1F261}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2698C48-87A9-4D54-8549-247814208A0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2698C48-87A9-4D54-8549-247814208A0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2698C48-87A9-4D54-8549-247814208A0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2698C48-87A9-4D54-8549-247814208A0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9DBA409-A73A-43D8-A494-124F83E5B797}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9DBA409-A73A-43D8-A494-124F83E5B797}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9DBA409-A73A-43D8-A494-124F83E5B797}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9DBA409-A73A-43D8-A494-124F83E5B797}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

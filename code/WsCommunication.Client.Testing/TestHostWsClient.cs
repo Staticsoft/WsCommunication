@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.TestHost;
 using Staticsoft.WsCommunication.Client.Abstractions;
 
-namespace Staticsoft.WsCommunication.Tests;
+namespace Staticsoft.WsCommunication.Client.Testing;
 
 public class TestHostWsClient(
     WebSocketClient client

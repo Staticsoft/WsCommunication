@@ -14,13 +14,13 @@
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/Staticsoft/WsCommunication</RepositoryUrl>
     </PropertyGroup>
-    
+
     <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <ProjectReference Include="..\WsCommunication.Client.Abstractions\WsCommunication.Client.Abstractions.csproj" />
     </ItemGroup>
-    
+
     <ItemGroup>
-      <ProjectReference Include="..\WsCommunication.Server\WsCommunication.Server.Abstractions.csproj" />
+        <PackageReference Include="Staticsoft.Testing.Integration" Version="1.0.0-10" />
     </ItemGroup>
 
 </Project>

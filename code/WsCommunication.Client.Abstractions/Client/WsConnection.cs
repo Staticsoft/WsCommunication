@@ -6,7 +6,7 @@ namespace Staticsoft.WsCommunication.Client.Abstractions;
 
 public class WsConnection(
     WebSocket webSocket
-)
+) : IAsyncDisposable
 {
     readonly WebSocket WebSocket = webSocket;
 

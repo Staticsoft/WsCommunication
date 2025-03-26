@@ -9,15 +9,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\WsCommunication.Server\WsCommunication.Server.Abstractions.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
         <PackageReference Include="Staticsoft.Contracts.Abstractions" Version="1.0.0-17" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\WsCommunication.Server\WsCommunication.Server.Abstractions.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Using Alias="HttpMethod" Include="Staticsoft.HttpCommunication.Abstractions.HttpMethod"/>
+        <Using Alias="HttpMethod" Include="Staticsoft.HttpCommunication.Abstractions.HttpMethod" />
     </ItemGroup>
 
 </Project>

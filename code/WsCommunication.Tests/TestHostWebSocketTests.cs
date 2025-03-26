@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Staticsoft.WsCommunication.Client.Abstractions;
+using Staticsoft.WsCommunication.Client.Testing;
 
 namespace Staticsoft.WsCommunication.Tests;
 
@@ -7,5 +7,9 @@ public class TestHostWebSocketTests : WebSocketTests
 {
     protected override IServiceCollection ClientServices(IServiceCollection services)
         => base.ClientServices(services)
-            .AddSingleton<WsClient, TestHostWsClient>();
+            .UseTestHostWsClient();
+
+    protected override IServiceCollection ServerServices(IServiceCollection services)
+        => base.ServerServices(services)
+            .AddSingleton(_ => Client<HttpClient>());
 }

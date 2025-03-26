@@ -2,5 +2,5 @@
 
 public interface WsServer
 {
-    Task Send(string connectionId, byte[] data);
+    Task Send(string connectionId, string message);
 }

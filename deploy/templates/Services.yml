@@ -141,11 +141,3 @@ Outputs:
     Value: !Ref DomainName
     Export:
       Name: !Sub "WebSocketCommunication${Stage}DomainName"
-  CloudFrontDistributionId:
-    Value: !Ref CloudFrontDistribution
-    Export:
-      Name: !Sub "WebSocketCommunication${Stage}CloudFrontDistributionId"
-  DomainHostedZoneId:
-    Value: !Ref DomainHostedZoneId
-    Export:
-      Name: !Sub "WebSocketCommunication${Stage}DomainHostedZoneId"

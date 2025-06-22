@@ -38,14 +38,21 @@ function Get-ExportValue {
         [string] $name
     )
 
-    & aws @(
+    $result = & aws @(
         'cloudformation'
         'list-exports'
         '--query'
-        "(Exports[?Name=='$name'].Value)[0]"
+        "Exports[?Name==`'$name`'].Value"
         '--output'
         'text'
     )
+
+    if ($result -is [System.Object[]]) {
+        $result[0]
+    }
+    else {
+        $result
+    }
 }
 
 function Deploy-Stack {

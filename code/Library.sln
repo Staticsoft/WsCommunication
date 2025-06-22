@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WsCommunication.Server.Loca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WsCommunication.Client.Testing", "WsCommunication.Client.Testing\WsCommunication.Client.Testing.csproj", "{A9DBA409-A73A-43D8-A494-124F83E5B797}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WsCommunication.Server.Lambda", "WsCommunication.Server.Lambda\WsCommunication.Server.Lambda.csproj", "{96572CBF-3FD7-4113-90D8-6E2394981D8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{A9DBA409-A73A-43D8-A494-124F83E5B797}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9DBA409-A73A-43D8-A494-124F83E5B797}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9DBA409-A73A-43D8-A494-124F83E5B797}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96572CBF-3FD7-4113-90D8-6E2394981D8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96572CBF-3FD7-4113-90D8-6E2394981D8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96572CBF-3FD7-4113-90D8-6E2394981D8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96572CBF-3FD7-4113-90D8-6E2394981D8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

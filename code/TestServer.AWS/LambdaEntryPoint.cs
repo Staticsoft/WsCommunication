@@ -1,5 +1,6 @@
 ﻿using Amazon.Lambda.Core;
 using Staticsoft.Asp.Lambda;
+using Staticsoft.WsCommunication.Server.Lambda;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 

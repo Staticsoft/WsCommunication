@@ -12,6 +12,6 @@ public class TestHostWsClient(
     public async Task<WsConnection> Connect()
     {
         var webSocket = await Client.ConnectAsync(new Uri("http://localhost"), CancellationToken.None);
-        return new WsConnection(webSocket);
+        return new WsClientConnection(webSocket);
     }
 }

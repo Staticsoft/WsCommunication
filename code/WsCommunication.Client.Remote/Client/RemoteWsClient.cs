@@ -18,6 +18,6 @@ public class RemoteWsClient(
     public async Task<WsConnection> Connect()
     {
         await Client.ConnectAsync(new Uri(Configuration.Uri), CancellationToken.None);
-        return new WsConnection(Client);
+        return new WsClientConnection(Client);
     }
 }
